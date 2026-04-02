@@ -1,4 +1,78 @@
 
+export function addToCartHandle(articleId, article, description, imageSrc, imageAlt, price){
+    const selectedItem = {
+        id: crypto.randomUUID(),
+        itemId: articleId,
+        item: article,
+        description: description,
+        image: imageSrc,
+        imageAlt: imageAlt,
+        price: price,
+        qty: 1,
+        totalPrice: price
+    }
+    sendToStorage(selectedItem);
+}
+export function getCartStorage() {
+    const loggedUser = JSON.parse(localStorage.getItem("userLogged"));
+    if(loggedUser) {
+        const userData = locateCarOfUser();
+        if(!userData) return;
+        return userData.users[userData.userIndex].cart || [];
+    } else {
+        return JSON.parse(localStorage.getItem("tempCoffeeCart")) || [];
+    }
+}
+export function locateCarOfUser() {
+    const loggedUser = JSON.parse(localStorage.getItem("userLogged"));
+    if(!loggedUser) return;
+    let users = JSON.parse(localStorage.getItem("registeredUser"))
+    if(!Array.isArray(users)) users = [];
+    const userIndex = users.findIndex(user => String(user.registryId) === String(loggedUser.registryId));
+    if(userIndex === -1) return;
+    users[userIndex].cart = users[userIndex].cart || [];
+    return {users, userIndex}
+}
+export function sendToStorage(selectedItem) {
+   const cart = getCartStorage();
+   const existingItem = cart.find(item => item.itemId === selectedItem.itemId);
+   console.log(existingItem);
+   if(existingItem) {
+    existingItem.qty += selectedItem.qty;
+    existingItem.totalPrice = existingItem.qty * existingItem.price
+   } else {
+    cart.push({
+        id: crypto.randomUUID(),
+        itemId: selectedItem.itemId,
+        item: selectedItem.item,
+        description: selectedItem.description,
+        image: selectedItem.image,
+        imageAlt: selectedItem.imageAlt,
+        price: selectedItem.price,
+        qty: selectedItem.qty,
+        totalPrice: selectedItem.totalPrice
+    });
+   }
+   saveToCartStorage(cart);
+}
+export function saveToCartStorage(itemToCart) {
+    const loggedUser = JSON.parse(localStorage.getItem("userLogged"))
+    if(loggedUser) {
+        const userData = locateCarOfUser();
+        if(!userData) return;
+        let {users, userIndex} = userData;
+        users[userIndex].cart = itemToCart;
+        localStorage.setItem("registeredUser", JSON.stringify(users));
+    } else {
+        localStorage.setItem("tempCoffeeCart", JSON.stringify(itemToCart));
+    }
+}
+
+
+
+
+
+
 function imageButtonChanger(){  
     const buttonOfTheDay = document.querySelectorAll(".cappuccino-button-carousel");
     buttonOfTheDay.forEach((e) =>{

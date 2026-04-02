@@ -5,13 +5,27 @@ import Footer from "./footer-html/footer";
 import MobileNav from "./mobileNav-html/mobileNav";
 import Home from "./home-html/home";
 import CoffeeBeans from "./coffeeBeans-html/coffeeBeans";
+import Cart from "./cart-html/cart";
+import { useState } from "react";
+import { getCartStorage } from "./assets/js/coffeeBeans";
 function App() {
+  const [cartItems, setCartItems] = useState(() => getCartStorage());
+
   return (
     <BrowserRouter basename="/Coffee_webpage_react_ver">
       <Head />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/coffeeBeans" element={<CoffeeBeans />} />
+        <Route
+          path="/coffeeBeans"
+          element={
+            <CoffeeBeans cartItems={cartItems} setCartItems={setCartItems} />
+          }
+        />
+        <Route
+          path="/cart"
+          element={<Cart cartItems={cartItems} setCartItems={setCartItems} />}
+        />
       </Routes>
       <Footer />
       <MobileNav />

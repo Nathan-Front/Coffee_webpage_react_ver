@@ -4,8 +4,10 @@ import {
 } from "../assets/data/coffeeBeans/coffeeOfMonth";
 import { Beans } from "../assets/data/coffeeBeans/beans";
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { Others } from "../assets/data/coffeeBeans/otherProducts";
-function CoffeeBeans() {
+import { addToCartHandle, getCartStorage } from "../assets/js/coffeeBeans";
+function CoffeeBeans({ cartItems, setCartItems }) {
   const [selectCoffeeBtn, setSelectCoffeeBtn] = useState(
     CoffeeOfMonthBtn[0].id,
   );
@@ -107,6 +109,21 @@ function CoffeeBeans() {
     setTouchStartCoffee(null);
     setTouchEndCoffee(null);
   };
+
+  function addToCartHandler(bean) {
+    const articleId = bean.id;
+    const article = bean.name;
+    const description = bean.description;
+    const imageSrc = bean.src;
+    const imageAlt = bean.alt;
+    const price = bean.price;
+    addToCartHandle(articleId, article, description, imageSrc, imageAlt, price);
+
+    const updateCartUI = getCartStorage();
+    setCartItems(updateCartUI);
+
+    alert("Item added to cart");
+  }
 
   return (
     <>
@@ -216,7 +233,11 @@ function CoffeeBeans() {
                       <span className="item-price">
                         ${bean.price.toFixed(2)}
                       </span>
-                      <button type="button" className="add-to-cart-button">
+                      <button
+                        type="button"
+                        className="add-to-cart-button"
+                        onClick={() => addToCartHandler(bean)}
+                      >
                         <img
                           src="./images/coffeeBeans/cart/icon-cart-white.svg"
                           alt="add to cart"
@@ -252,7 +273,7 @@ function CoffeeBeans() {
           <div className="other-items-container">
             <ul className="other-items-list-container">
               {Others.map((item) => (
-                <li className="other-items">
+                <li className="other-items" key={item.id}>
                   <h4>{item.name}</h4>
                   <img
                     className="other-sale-item"
@@ -284,14 +305,16 @@ function CoffeeBeans() {
           </div>
         </article>
         <section className="cart-float-container">
-          <a href="cart.html">
+          <Link to="/cart">
             <img
-              src="./images/coffeeBeans/cart/icon-cart-white.svg"
+              src={`${import.meta.env.BASE_URL}images/coffeeBeans/cart/icon-cart-white.svg`}
               alt="cart button"
               loading="lazy"
             />
-          </a>
-          <span id="cart-item-counter-display">0</span>
+          </Link>
+          <span id="cart-item-counter-display">
+            {cartItems.reduce((total, item) => total + item.qty, 0)}
+          </span>
         </section>
       </main>
     </>
