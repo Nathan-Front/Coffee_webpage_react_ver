@@ -26,22 +26,43 @@ function CoffeeBeans() {
       window.removeEventListener("resize", updateSliderView);
     };
   }, []);
+  //For mobile state
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 599);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 599);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const trackRef = useRef(null);
   const [translateX, setTranslateX] = useState(0);
 
   useEffect(() => {
+    //centering if width is not 100%
     if (!trackRef.current) return;
     const track = trackRef.current;
     const slide = track.querySelector(".product-sale-item-container");
-    const style = window.getComputedStyle(slide);
-    const gap = parseInt(style.columnGap || style.gap) || 0;
-    const slideWidth = slide.offsetWidth + gap;
-    setTranslateX(coffeeIndex * (slideWidth + 20));
-  }, [coffeeIndex, sliderView]);
+    const viewport = track.parentElement; //beans-carousel-viewport
+    if (!slide || !viewport) return;
+
+    const slideWidth = slide.getBoundingClientRect().width;
+    const trackStyle = window.getComputedStyle(track);
+    const gap = parseInt(trackStyle.gap) || 20;
+    const stepWidth = slideWidth + gap;
+
+    if (isMobile) {
+      const viewportWidth = viewport.offsetWidth;
+      const centerOffset = (viewportWidth - slideWidth) / 2;
+      const newTranslate = coffeeIndex * stepWidth - centerOffset;
+      setTranslateX(newTranslate);
+    } else {
+      setTranslateX(coffeeIndex * stepWidth);
+    }
+  }, [coffeeIndex, isMobile]);
 
   const maxIndex = Beans.length - sliderView;
-
   //prev/mext buttons
   function nextBtn() {
     setCoffeeIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
@@ -85,16 +106,6 @@ function CoffeeBeans() {
     setTouchStartCoffee(null);
     setTouchEndCoffee(null);
   };
-
-  //For mobile state
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 599);
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 599);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   return (
     <>
@@ -181,7 +192,7 @@ function CoffeeBeans() {
             <ul
               ref={trackRef}
               className="product-sale-list-item-container"
-              style={{ transform: `translateX(-${translateX}px)` }}
+              style={{ transform: `translateX(${-translateX}px)` }}
               onTouchStart={isMobile ? onTouchStartCoffee : undefined}
               onTouchMove={isMobile ? onTouchMoveCoffee : undefined}
               onTouchEnd={isMobile ? onTouchEndCoffee : undefined}
