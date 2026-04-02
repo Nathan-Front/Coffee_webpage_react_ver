@@ -6,7 +6,7 @@ export const Beans = [
         src: `${BASE}images/index/fourthSection/espresso.png`,
         alt: "espresso image",
         description: "Another Great Complex Espresso Bean",
-        price: "10"
+        price: 10
     },
     {
         id: 2,
@@ -14,7 +14,7 @@ export const Beans = [
         src: `${BASE}images/coffeeBeans/thirdSection/ristretto.png`,
         alt: "ristretto image",
         description: "Taste Profile – Sweeter, Richer, Less Bitter",
-        price: "13"
+        price: 13
     },
     {
         id: 3,
@@ -22,7 +22,7 @@ export const Beans = [
         src: `${BASE}images//coffeeBeans/thirdSection/lungo.png`,
         alt: "lungo image",
         description: "A bold and smooth coffee drink",
-        price: "25"
+        price: 25
     },
     {
         id: 4,
@@ -30,7 +30,7 @@ export const Beans = [
         src: `${BASE}images/coffeeBeans/thirdSection/doppio.png`,
         alt: "doppio image",
         description: "Double the amount, double the beans. The double Espresso",
-        price: "12"
+        price: 12
     },
     {
         id: 5,
@@ -38,7 +38,7 @@ export const Beans = [
         src: `${BASE}images/coffeeBeans/thirdSection/redeye.png`,
         alt: "red eye image",
         description: "Another Great Complex Espresso Bean",
-        price: "5"
+        price: 5
     },
     {
         id: 6,
@@ -46,7 +46,7 @@ export const Beans = [
         src: `${BASE}images/index/fourthSection/americano.png`,
         alt: "americano image",
         description: "Taste Profile – Sweeter, Richer, Less Bitter",
-        price: "15"
+        price: 15
     },
     {
         id: 7,
@@ -54,7 +54,7 @@ export const Beans = [
         src: `${BASE}images/index/fourthSection/latte.png`,
         alt: "latte image",
         description: "Feels like an Italian? Make an Italian-style coffee",
-        price: "15"
+        price: 15
     },
     {
         id: 8,
@@ -62,7 +62,7 @@ export const Beans = [
         src: `${BASE}images/coffeeBeans/thirdSection/cappuccino.png`,
         alt: "cappuccino image",
         description: "Double the amount, double the beans. The double Espresso",
-        price: "18"
+        price: 18
     },
     {
         id: 9,
@@ -70,7 +70,7 @@ export const Beans = [
         src: `${BASE}images/coffeeBeans/thirdSection/flatwhite.png`,
         alt: "flat white image",
         description: "Another Great Complex Espresso Bean",
-        price: "22.50"
+        price: 22.50
     },
     {
         id: 10,
@@ -78,7 +78,7 @@ export const Beans = [
         src: `${BASE}images/coffeeBeans/thirdSection/cafeaulait.png`,
         alt: "cafe au lait image",
         description: "Taste Profile – Sweeter, Richer, Less Bitter",
-        price: "13.50"
+        price: 13.50
     },
     {
         id: 11,
@@ -86,7 +86,7 @@ export const Beans = [
         src: `${BASE}images/coffeeBeans/thirdSection/cortado.png`,
         alt: "cortado image",
         description: "Feels like an Italian? Make an Italian-style coffee",
-        price: "18"
+        price: 18
     },
     {
         id: 12,
@@ -94,7 +94,7 @@ export const Beans = [
         src: `${BASE}images/coffeeBeans/thirdSection/macchiato.png`,
         alt: "macchiato image",
         description: "Double the amount, double the beans. The double Espresso",
-        price: "26.75"
+        price: 26.75
     },
     {
         id: 13,
@@ -102,6 +102,6 @@ export const Beans = [
         src: `${BASE}images/index/fourthSection/mocha.png`,
         alt: "mocha image",
         description: "A rich and creamy coffee drink",
-        price: "22.50"
+        price: 22.50
     }
 ]

@@ -4,6 +4,7 @@ import {
 } from "../assets/data/coffeeBeans/coffeeOfMonth";
 import { Beans } from "../assets/data/coffeeBeans/beans";
 import { useState, useEffect, useRef } from "react";
+import { Others } from "../assets/data/coffeeBeans/otherProducts";
 function CoffeeBeans() {
   const [selectCoffeeBtn, setSelectCoffeeBtn] = useState(
     CoffeeOfMonthBtn[0].id,
@@ -170,7 +171,9 @@ function CoffeeBeans() {
               </div>
 
               <p>{CoffeeOfMonth[0].description}</p>
-              <p id="coffee-month-price">${CoffeeOfMonth[0].price}</p>
+              <p id="coffee-month-price">
+                ${CoffeeOfMonth[0].price.toFixed(2)}
+              </p>
             </div>
             <div className="article-right-panel-button-list">
               <button type="button" id="coffee-month-add-to-cart-btn">
@@ -210,7 +213,9 @@ function CoffeeBeans() {
                     <p>{bean.description}</p>
                     <h5>Free Shipping</h5>
                     <div>
-                      <span className="item-price">${bean.price}</span>
+                      <span className="item-price">
+                        ${bean.price.toFixed(2)}
+                      </span>
                       <button type="button" className="add-to-cart-button">
                         <img
                           src="./images/coffeeBeans/cart/icon-cart-white.svg"
@@ -246,102 +251,35 @@ function CoffeeBeans() {
           <h3>We Also Sell</h3>
           <div className="other-items-container">
             <ul className="other-items-list-container">
-              <li className="other-items">
-                <h4>Mug</h4>
-                <img
-                  className="other-sale-item"
-                  src="./images/coffeeBeans/fourthSection/mug.png"
-                  alt="coffee mug"
-                  loading="lazy"
-                />
-                <div className="other-sale-item-description">
-                  <p>White ceramic mug. 200ml capacity. weight 250 grams.</p>
-                  <h5>Shipping Fee: $0.75</h5>
-                  <div>
-                    <span>$3.50</span>
-                    <button type="button" className="add-to-cart-other-button">
-                      <img
-                        src="./images/coffeeBeans/cart/icon-cart-white.svg"
-                        alt="add to cart"
-                        loading="lazy"
-                      />
-                      Add to Cart
-                    </button>
+              {Others.map((item) => (
+                <li className="other-items">
+                  <h4>{item.name}</h4>
+                  <img
+                    className="other-sale-item"
+                    src={item.src}
+                    alt={item.alt}
+                    loading="lazy"
+                  />
+                  <div className="other-sale-item-description">
+                    <p>{item.description}</p>
+                    <h5>Shipping Fee: ${item.ship.toFixed(2)}</h5>
+                    <div>
+                      <span>${item.price.toFixed(2)}</span>
+                      <button
+                        type="button"
+                        className="add-to-cart-other-button"
+                      >
+                        <img
+                          src="./images/coffeeBeans/cart/icon-cart-white.svg"
+                          alt="add to cart"
+                          loading="lazy"
+                        />
+                        Add to Cart
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </li>
-              <li className="other-items">
-                <h4>Paper Cup</h4>
-                <img
-                  className="other-sale-item"
-                  src="./images/coffeeBeans/fourthSection/papercup.png"
-                  alt="coffee mug"
-                  loading="lazy"
-                />
-                <div className="other-sale-item-description">
-                  <p>An environment coffee cup. 350ml capacity.</p>
-                  <h5>Shipping Fee: $0.25</h5>
-                  <div>
-                    <span>$1.50</span>
-                    <button type="button" className="add-to-cart-other-button">
-                      <img
-                        src="./images/coffeeBeans/cart/icon-cart-white.svg"
-                        alt="add to cart"
-                        loading="lazy"
-                      />
-                      Add to Cart
-                    </button>
-                  </div>
-                </div>
-              </li>
-              <li className="other-items">
-                <h4>V60 Coffee Filter</h4>
-                <img
-                  className="other-sale-item"
-                  src="./images/coffeeBeans/fourthSection/filter.png"
-                  alt="coffee mug"
-                  loading="lazy"
-                />
-                <div className="other-sale-item-description">
-                  <p>50 sheets od disposable coffee filter. Color brown</p>
-                  <h5>Shipping Fee: $0.50</h5>
-                  <div>
-                    <span>$1.25</span>
-                    <button type="button" className="add-to-cart-other-button">
-                      <img
-                        src="./images/coffeeBeans/cart/icon-cart-white.svg"
-                        alt="add to cart"
-                        loading="lazy"
-                      />
-                      Add to Cart
-                    </button>
-                  </div>
-                </div>
-              </li>
-              <li className="other-items">
-                <h4>Transparent Dripper</h4>
-                <img
-                  className="other-sale-item"
-                  src="./images/coffeeBeans/fourthSection/dripper.png"
-                  alt="coffee mug"
-                  loading="lazy"
-                />
-                <div className="other-sale-item-description">
-                  <p>Plastic transparent dripper. Clean</p>
-                  <h5>Shipping Fee: $0.50</h5>
-                  <div>
-                    <span>$2.00</span>
-                    <button type="button" className="add-to-cart-other-button">
-                      <img
-                        src="./images/coffeeBeans/cart/icon-cart-white.svg"
-                        alt="add to cart"
-                        loading="lazy"
-                      />
-                      Add to Cart
-                    </button>
-                  </div>
-                </div>
-              </li>
+                </li>
+              ))}
             </ul>
           </div>
         </article>
