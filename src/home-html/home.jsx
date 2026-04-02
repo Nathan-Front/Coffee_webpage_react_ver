@@ -91,6 +91,8 @@ function Home() {
         return prev - 1;
       });
     }
+    setTouchStartTestimony(null);
+    setTouchEndTestimony(null);
   };
   function nxtBtn() {
     setTestimonyIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));

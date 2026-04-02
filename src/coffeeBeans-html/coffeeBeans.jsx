@@ -2,11 +2,93 @@ import {
   CoffeeOfMonth,
   CoffeeOfMonthBtn,
 } from "../assets/data/coffeeBeans/coffeeOfMonth";
-import { useState } from "react";
+import { Beans } from "../assets/data/coffeeBeans/beans";
+import { useState, useEffect, useRef } from "react";
 function CoffeeBeans() {
   const [selectCoffeeBtn, setSelectCoffeeBtn] = useState(
     CoffeeOfMonthBtn[0].id,
   );
+  const [coffeeIndex, setCoffeeIndex] = useState(0);
+  const [sliderView, setSliderView] = useState(4);
+  useEffect(() => {
+    const updateSliderView = () => {
+      if (window.innerWidth <= 599) {
+        setSliderView(1);
+      } else if (window.innerWidth <= 768) {
+        setSliderView(3);
+      } else {
+        setSliderView(4);
+      }
+    };
+    updateSliderView();
+    window.addEventListener("resize", updateSliderView);
+    return () => {
+      window.removeEventListener("resize", updateSliderView);
+    };
+  }, []);
+
+  const trackRef = useRef(null);
+  const [translateX, setTranslateX] = useState(0);
+
+  useEffect(() => {
+    if (!trackRef.current) return;
+    const track = trackRef.current;
+    const slide = track.querySelector(".product-sale-item-container");
+    const style = window.getComputedStyle(slide);
+    const gap = parseInt(style.columnGap || style.gap) || 0;
+    const slideWidth = slide.offsetWidth + gap;
+    setTranslateX(coffeeIndex * (slideWidth + 20));
+  }, [coffeeIndex, sliderView]);
+
+  const maxIndex = Beans.length - sliderView;
+
+  function nextBtn() {
+    setCoffeeIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+  }
+  function prevBtn() {
+    setCoffeeIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
+  }
+
+  const [touchStartCoffee, setTouchStartCoffee] = useState(null);
+  const [touchEndCoffee, setTouchEndCoffee] = useState(null);
+  const minSwipeDistance = 50;
+
+  const onTouchStartCoffee = (e) => {
+    setTouchEndCoffee(null);
+    setTouchStartCoffee(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMoveCoffee = (e) => {
+    setTouchEndCoffee(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEndCoffee = () => {
+    if (!touchStartCoffee || !touchEndCoffee) return;
+    const distance = touchStartCoffee - touchEndCoffee;
+    if (distance > minSwipeDistance) {
+      setCoffeeIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    }
+    if (distance < -minSwipeDistance) {
+      setCoffeeIndex((prev) => {
+        if (prev <= 0) {
+          return maxIndex;
+        }
+        return prev - 1;
+      });
+    }
+    setTouchStartCoffee(null);
+    setTouchEndCoffee(null);
+  };
+
+  //For mobile state
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 599);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 599);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <>
@@ -85,12 +167,46 @@ function CoffeeBeans() {
             </div>
           </div>
         </article>
+
         <article className="product-sale-list-container" id="sale-products">
           <h3>Our Best Beans</h3>
           <p>Try our best coffee beans that suits your taste.</p>
           <div className="beans-carousel-viewport">
-            <ul className="product-sale-list-item-container">
-              <li className="product-sale-item-container">
+            <ul
+              ref={trackRef}
+              className="product-sale-list-item-container"
+              style={{ transform: `translateX(-${translateX}px)` }}
+              onTouchStart={isMobile ? onTouchStartCoffee : undefined}
+              onTouchMove={isMobile ? onTouchMoveCoffee : undefined}
+              onTouchEnd={isMobile ? onTouchEndCoffee : undefined}
+            >
+              {Beans.map((bean) => (
+                <li className="product-sale-item-container" key={bean.id}>
+                  <h4>{bean.name}</h4>
+                  <img
+                    className="product-sale-item"
+                    src={bean.src}
+                    alt={bean.alt}
+                    loading="lazy"
+                  />
+                  <div className="product-sale-item-description">
+                    <p>{bean.description}</p>
+                    <h5>Free Shipping</h5>
+                    <div>
+                      <span className="item-price">${bean.price}</span>
+                      <button type="button" className="add-to-cart-button">
+                        <img
+                          src="./images/coffeeBeans/cart/icon-cart-white.svg"
+                          alt="add to cart"
+                          loading="lazy"
+                        />
+                        Add to Cart
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              ))}
+              {/*       <li className="product-sale-item-container">
                 <h4>Espresso</h4>
                 <img
                   className="product-sale-item"
@@ -410,14 +526,18 @@ function CoffeeBeans() {
                     </button>
                   </div>
                 </div>
-              </li>
+              </li>*/}
             </ul>
-            <div className="coffee-dots"></div>
+            <div className="coffee-dots">
+              {Beans.map((bean) => (
+                <span key={bean.id} className="coffee-dot" />
+              ))}
+            </div>
           </div>
-          <button type="button" className="coffeePrev">
+          <button type="button" className="coffeePrev" onClick={prevBtn}>
             ‹
           </button>
-          <button type="button" className="coffeeNext">
+          <button type="button" className="coffeeNext" onClick={nextBtn}>
             ›
           </button>
         </article>
