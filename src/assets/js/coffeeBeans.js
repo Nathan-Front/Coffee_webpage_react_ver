@@ -1,5 +1,6 @@
 
-export function addToCartHandle(articleId, article, description, imageSrc, imageAlt, price){
+import { Beans } from "../data/coffeeBeans/beans";
+export function addToCartHandle(articleId, article, description, imageSrc, imageAlt, price, shipping){
     const selectedItem = {
         id: crypto.randomUUID(),
         itemId: articleId,
@@ -8,6 +9,7 @@ export function addToCartHandle(articleId, article, description, imageSrc, image
         image: imageSrc,
         imageAlt: imageAlt,
         price: price,
+        shipping: shipping,
         qty: 1,
         totalPrice: price
     }
@@ -49,6 +51,7 @@ export function sendToStorage(selectedItem) {
         image: selectedItem.image,
         imageAlt: selectedItem.imageAlt,
         price: selectedItem.price,
+        shipping: selectedItem.shipping,
         qty: selectedItem.qty,
         totalPrice: selectedItem.totalPrice
     });
@@ -67,7 +70,30 @@ export function saveToCartStorage(itemToCart) {
         localStorage.setItem("tempCoffeeCart", JSON.stringify(itemToCart));
     }
 }
-
+export function coffeeOfMonthAddToCart(name) {
+    const cart = getCartStorage();
+    if(!cart) return;
+    const existingItem = cart.find(cartItem => cartItem.item === name);
+    if(existingItem){
+        existingItem.qty += 1;
+        existingItem.totalPrice = existingItem.qty * existingItem.price;
+    } else {
+        const beanList = Beans.find(bean => bean.name === name)
+        cart.push({
+            id: crypto.randomUUID(),
+            itemId: beanList.id,
+            item: beanList.name,
+            description: beanList.description,
+            image: beanList.src,
+            imageAlt: beanList.alt,
+            price: beanList.price,
+            shipping: beanList.ship,
+            qty: 1,
+            totalPrice: beanList.price
+        });
+    }
+    saveToCartStorage(cart);
+}
 
 
 

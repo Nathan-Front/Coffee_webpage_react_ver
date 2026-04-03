@@ -35,13 +35,14 @@
     display: flex;
 }
 .item-info img{
-    width: clamp(150px, 10vw, 200px);
+    width: clamp(130px, 15vw, 200px);
 }
 .item-cart-description{
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-top: 20px;
+    margin-right: auto;
 }
 .item-cart-description> span{
     font-weight: bolder;
@@ -74,6 +75,7 @@
     flex: 20%;
     text-align: right;
     margin-bottom: 45px;
+            font-size: clamp(0.8rem, 2vw, 1.4rem); 
 }
 .price> div> h3{
     padding-right: 10px;
@@ -176,14 +178,17 @@
         margin-bottom: 10px; 
         display: flex; 
     }
+    .total> div> span{
+        position: relative;
+    }
     .price> div> h3,
-    .quantity> h3{
+    .quantity> h3,
+    .total> div> h3{
         padding-right: 10px;
     }
     .quantity> button:nth-child(2),
     .quantity> button:last-child{
-        margin: 0;
-        
+        margin: 0;  
     }
     .quantity> span{
         position: relative;
@@ -201,13 +206,6 @@
         margin-top: 30px; 
         padding-bottom: 20px; 
     }
-    .item-info{
-        flex: 35%; 
-    }
-    .item-info> img{
-        width: clamp(70px, 120px, 200px);
-        height: 45%;
-    }
     .item-cart-description> button{
         margin-bottom: 15px; 
     }
@@ -223,7 +221,6 @@
     }
     .price, .total{
         flex: 15%;
-        font-size: clamp(0.7rem, 0.8rem, 1.1rem); 
         gap: 0;
     }
     .price>h3,

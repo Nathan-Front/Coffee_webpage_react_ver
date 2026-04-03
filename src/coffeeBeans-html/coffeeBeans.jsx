@@ -6,7 +6,11 @@ import { Beans } from "../assets/data/coffeeBeans/beans";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Others } from "../assets/data/coffeeBeans/otherProducts";
-import { addToCartHandle, getCartStorage } from "../assets/js/coffeeBeans";
+import {
+  coffeeOfMonthAddToCart,
+  addToCartHandle,
+  getCartStorage,
+} from "../assets/js/coffeeBeans";
 function CoffeeBeans({ cartItems, setCartItems }) {
   const [selectCoffeeBtn, setSelectCoffeeBtn] = useState(
     CoffeeOfMonthBtn[0].id,
@@ -110,14 +114,31 @@ function CoffeeBeans({ cartItems, setCartItems }) {
     setTouchEndCoffee(null);
   };
 
-  function addToCartHandler(bean) {
-    const articleId = bean.id;
-    const article = bean.name;
-    const description = bean.description;
-    const imageSrc = bean.src;
-    const imageAlt = bean.alt;
-    const price = bean.price;
-    addToCartHandle(articleId, article, description, imageSrc, imageAlt, price);
+  function coffeeMonth(name) {
+    coffeeOfMonthAddToCart(name);
+    const updateCartUI = getCartStorage();
+    setCartItems(updateCartUI);
+
+    alert("Item added to cart");
+  }
+
+  function addToCartHandler(item) {
+    const articleId = item.id;
+    const article = item.name;
+    const description = item.description;
+    const imageSrc = item.src;
+    const imageAlt = item.alt;
+    const price = item.price;
+    const shipping = item.ship;
+    addToCartHandle(
+      articleId,
+      article,
+      description,
+      imageSrc,
+      imageAlt,
+      price,
+      shipping,
+    );
 
     const updateCartUI = getCartStorage();
     setCartItems(updateCartUI);
@@ -193,7 +214,11 @@ function CoffeeBeans({ cartItems, setCartItems }) {
               </p>
             </div>
             <div className="article-right-panel-button-list">
-              <button type="button" id="coffee-month-add-to-cart-btn">
+              <button
+                type="button"
+                id="coffee-month-add-to-cart-btn"
+                onClick={() => coffeeMonth(CoffeeOfMonth[0].name)}
+              >
                 <img
                   src="./images/coffeeBeans/cart/icon-cart-white.svg"
                   alt="add to cart"
@@ -289,6 +314,7 @@ function CoffeeBeans({ cartItems, setCartItems }) {
                       <button
                         type="button"
                         className="add-to-cart-other-button"
+                        onClick={() => addToCartHandler(item)}
                       >
                         <img
                           src="./images/coffeeBeans/cart/icon-cart-white.svg"

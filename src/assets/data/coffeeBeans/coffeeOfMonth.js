@@ -7,7 +7,7 @@ export const CoffeeOfMonth = [
         src: `${BASE}images/coffeeBeans/secondSection/cappuccino1.jpg`,
         alt: "coffee of the week",
         description: "Most bought and liked coffee from our beloved customers last month.",
-        price: 8.50,
+        price: 18,
         star: 5
     }
 ];

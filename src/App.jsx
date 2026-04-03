@@ -1,11 +1,12 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import "font-awesome/css/font-awesome.min.css";
-import Head from "./head-html/head";
-import Footer from "./footer-html/footer";
-import MobileNav from "./mobileNav-html/mobileNav";
-import Home from "./home-html/home";
-import CoffeeBeans from "./coffeeBeans-html/coffeeBeans";
-import Cart from "./cart-html/cart";
+import Head from "./head-html/head.jsx";
+import Footer from "./footer-html/footer.jsx";
+import MobileNav from "./mobileNav-html/mobileNav.jsx";
+import Home from "./home-html/home.jsx";
+import CoffeeBeans from "./coffeeBeans-html/coffeeBeans.jsx";
+import Cart from "./cart-html/cart.jsx";
+import Signup from "./forms-html/signup.jsx";
 import { useState } from "react";
 import { getCartStorage } from "./assets/js/coffeeBeans";
 function App() {
@@ -26,6 +27,7 @@ function App() {
           path="/cart"
           element={<Cart cartItems={cartItems} setCartItems={setCartItems} />}
         />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
       <Footer />
       <MobileNav />
