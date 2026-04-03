@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   createAccount,
   validateEmail,
@@ -6,6 +7,7 @@ import {
   checkUser,
 } from "../assets/js/signup";
 function Signup() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     familyName: "",
     firstName: "",
@@ -42,6 +44,7 @@ function Signup() {
     }
     createAccount(form);
     alert("Account created");
+    navigate("/Login");
   }
   function resetForm() {
     setForm({

@@ -1,3 +1,4 @@
+import { hashPassword } from "./hashPassword";
 //Check duplicate email
 export function checkEmail(emailString) {
     const users = JSON.parse(localStorage.getItem("registeredUser")) || [];
@@ -20,10 +21,15 @@ export function checkUser(userString) {
     return userExist;
 }
 //Create new user
-export function createAccount(form) {
+export async function createAccount(form) {
     const users = JSON.parse(localStorage.getItem("registeredUser")) || [];
     if(!users) return;
-    users.push(form)
+    const hashedPassword = await hashPassword(form.password);
+    const newUser = {
+        ...form, //Copy all the data
+        password: hashedPassword //Then overwrite the password
+    };
+    users.push(newUser);
     localStorage.setItem("registeredUser", JSON.stringify(users));
 }
 

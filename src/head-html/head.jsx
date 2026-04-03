@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
-
-function Head() {
+import { useRef } from "react";
+function Head({ loggedUser, setLoggedUser }) {
+  const userRef = useRef(null);
+  function signOut() {
+    setLoggedUser(null);
+    localStorage.removeItem("loggedUser");
+    alert("logged out.");
+  }
   return (
     <>
       <div className="header-nav-container">
@@ -49,9 +55,11 @@ function Head() {
           <div className="user-container">
             <div>
               <span>Hi</span>
-              <p className="logged-in-user">Guest</p>
+              <p ref={userRef} className="logged-in-user">
+                {loggedUser?.userName || "Guest"}
+              </p>
             </div>
-            <button type="button" className="logout-button">
+            <button type="button" className="logout-button" onClick={signOut}>
               Sign out
             </button>
           </div>

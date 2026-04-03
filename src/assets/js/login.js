@@ -1,3 +1,28 @@
+import { use } from "react";
+import { hashPassword } from "./hashPassword";
+export async function userLogin(userData){
+    const user = JSON.parse(localStorage.getItem("registeredUser")) || [];
+    if(!user) return;
+    const hashedPassword = await hashPassword(userData.password);
+    const foundUser = user.find(user => user.userName === userData.userName && user.password === hashedPassword);
+    
+    if(foundUser) {
+        localStorage.setItem("loggedUser", JSON.stringify(foundUser));
+        return {success: true, user: foundUser}
+    } else {
+        return { error: "Invalid username or password" };
+    }
+}
+
+export async function RememberMe(check, user){
+    if(!user) return;
+    if(check) {
+        localStorage.setItem("rememberMe", JSON.stringify(user.userName))
+    } else {
+        localStorage.removeItem("rememberMe");
+    }
+    return {success: true}
+}
 
 window.loginUser = function loginUser(){
     const loginForm = document.getElementById("loginForm");
