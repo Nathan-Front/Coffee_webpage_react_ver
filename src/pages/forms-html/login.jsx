@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { userLogin, RememberMe } from "../assets/js/login.js";
+import {
+  userLogin,
+  RememberMe,
+  mergeCartOnLogin,
+} from "../../assets/js/login.js";
 import { Link, useNavigate } from "react-router-dom";
 function Login({ setLoggedUser }) {
   const navigate = useNavigate();
@@ -26,6 +30,8 @@ function Login({ setLoggedUser }) {
       alert(result.error);
       return;
     }
+    localStorage.setItem("userLogged", JSON.stringify(result.user));
+    await mergeCartOnLogin();
     setLoggedUser(result.user);
     await RememberMe(isChecked, result.user);
     alert("login successful");

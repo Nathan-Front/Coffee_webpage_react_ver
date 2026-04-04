@@ -5,9 +5,9 @@ import {
   displayTax,
   itemShipping,
   displayGrandTotal,
-} from "../assets/js/coffeeBeans";
+} from "../../assets/js/coffeeBeans";
 
-function Cart({ cartItems, setCartItems }) {
+function Cart({ cartItems, setCartItems, loggedUser }) {
   function deleteItem(id) {
     const deleteArticle = getCartStorage().filter((item) => !(item.id === id));
     saveToCartStorage(deleteArticle);
@@ -36,6 +36,14 @@ function Cart({ cartItems, setCartItems }) {
   const subTotalTax = displayTax();
   const grandTotal = displayGrandTotal();
 
+  function toPayment() {
+    if (!loggedUser) {
+      alert("Must be logged in.");
+      return;
+    } else {
+      alert("Total payment $" + grandTotal);
+    }
+  }
   return (
     <>
       <main>
@@ -116,7 +124,7 @@ function Cart({ cartItems, setCartItems }) {
               Grand Total: $
               <span id="grand-total">{grandTotal.toFixed(2)}</span>
             </p>
-            <button type="button" id="checkout-button">
+            <button type="button" id="checkout-button" onClick={toPayment}>
               Proceed to Checkout
             </button>
           </div>

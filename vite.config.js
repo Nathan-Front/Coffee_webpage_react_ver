@@ -5,4 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/Coffee_webpage_react_ver/',
+  server: {
+    historyApiFallback: true, // This is the magic line for refreshes
+  },
 })

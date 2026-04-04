@@ -4,7 +4,7 @@ function Head({ loggedUser, setLoggedUser }) {
   const userRef = useRef(null);
   function signOut() {
     setLoggedUser(null);
-    localStorage.removeItem("loggedUser");
+    localStorage.removeItem("userLogged");
     alert("logged out.");
   }
   return (

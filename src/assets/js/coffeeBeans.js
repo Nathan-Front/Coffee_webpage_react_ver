@@ -18,14 +18,14 @@ export function addToCartHandle(item){
 export function getCartStorage() {
     const loggedUser = JSON.parse(localStorage.getItem("userLogged"));
     if(loggedUser) {
-        const userData = locateCarOfUser();
+        const userData = locateCartOfUser();
         if(!userData) return;
         return userData.users[userData.userIndex].cart || [];
     } else {
         return JSON.parse(localStorage.getItem("tempCoffeeCart")) || [];
     }
 }
-export function locateCarOfUser() {
+export function locateCartOfUser() {
     const loggedUser = JSON.parse(localStorage.getItem("userLogged"));
     if(!loggedUser) return;
     let users = JSON.parse(localStorage.getItem("registeredUser"))
@@ -61,7 +61,7 @@ export function sendToStorage(selectedItem) {
 export function saveToCartStorage(itemToCart) {
     const loggedUser = JSON.parse(localStorage.getItem("userLogged"))
     if(loggedUser) {
-        const userData = locateCarOfUser();
+        const userData = locateCartOfUser();
         if(!userData) return;
         let {users, userIndex} = userData;
         users[userIndex].cart = itemToCart;

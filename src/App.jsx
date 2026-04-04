@@ -1,15 +1,17 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import "font-awesome/css/font-awesome.min.css";
-import Head from "./head-html/head.jsx";
-import Footer from "./footer-html/footer.jsx";
-import MobileNav from "./mobileNav-html/mobileNav.jsx";
-import Home from "./home-html/home.jsx";
-import CoffeeBeans from "./coffeeBeans-html/coffeeBeans.jsx";
-import Cart from "./cart-html/cart.jsx";
-import Signup from "./forms-html/signup.jsx";
-import Login from "./forms-html/login.jsx";
-import Service from "./services-html/service.jsx";
-import About from "./aboutUs-html/about.jsx";
+import Head from "./pages/head-html/head.jsx";
+import Footer from "./pages/footer-html/footer.jsx";
+import MobileNav from "./pages/mobileNav-html/mobileNav.jsx";
+import Home from "./pages/home-html/home.jsx";
+import CoffeeBeans from "./pages/coffeeBeans-html/coffeeBeans.jsx";
+import Cart from "./pages/cart-html/cart.jsx";
+import Signup from "./pages/forms-html/signup.jsx";
+import Login from "./pages/forms-html/login.jsx";
+import Service from "./pages/services-html/service.jsx";
+import Reservation from "./pages/services-html/reservation.jsx";
+import About from "./pages/aboutUs-html/about.jsx";
+
 import { useState } from "react";
 import { getCartStorage } from "./assets/js/coffeeBeans";
 function App() {
@@ -18,7 +20,7 @@ function App() {
     return JSON.parse(localStorage.getItem("loggedUser")) || null;
   });
   return (
-    <BrowserRouter basename="/Coffee_webpage_react_ver">
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Head loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -30,9 +32,16 @@ function App() {
         />
         <Route
           path="/cart"
-          element={<Cart cartItems={cartItems} setCartItems={setCartItems} />}
+          element={
+            <Cart
+              cartItems={cartItems}
+              setCartItems={setCartItems}
+              loggedUser={loggedUser}
+            />
+          }
         />
         <Route path="/service" element={<Service />} />
+        <Route path="/reservation" element={<Reservation />} />
         <Route path="/about" element={<About />} />
         <Route
           path="/login"

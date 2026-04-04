@@ -1,7 +1,7 @@
-import { Coffee } from "../assets/data/home/coffee";
-import { Process, Method } from "../assets/data/home/method";
-import { MostWanted } from "../assets/data/home/mostWanted";
-import { Customers } from "../assets/data/home/testimony";
+import { Coffee } from "../../assets/data/home/coffee";
+import { Process, Method } from "../../assets/data/home/method";
+import { MostWanted } from "../../assets/data/home/mostWanted";
+import { Customers } from "../../assets/data/home/testimony";
 import { Fragment, useEffect, useState, useRef } from "react";
 function Home() {
   const [selectedCoffee, setSelectedCoffee] = useState(Coffee[0].id);

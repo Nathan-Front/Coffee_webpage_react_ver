@@ -1,16 +1,16 @@
 import {
   CoffeeOfMonth,
   CoffeeOfMonthBtn,
-} from "../assets/data/coffeeBeans/coffeeOfMonth";
-import { Beans } from "../assets/data/coffeeBeans/beans";
+} from "../../assets/data/coffeeBeans/coffeeOfMonth";
+import { Beans } from "../../assets/data/coffeeBeans/beans";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Others } from "../assets/data/coffeeBeans/otherProducts";
+import { Others } from "../../assets/data/coffeeBeans/otherProducts";
 import {
   coffeeOfMonthAddToCart,
   addToCartHandle,
   getCartStorage,
-} from "../assets/js/coffeeBeans";
+} from "../../assets/js/coffeeBeans";
 function CoffeeBeans({ cartItems, setCartItems }) {
   const [selectCoffeeBtn, setSelectCoffeeBtn] = useState(
     CoffeeOfMonthBtn[0].id,

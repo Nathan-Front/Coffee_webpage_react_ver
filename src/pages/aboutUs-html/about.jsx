@@ -1,4 +1,4 @@
-import { AboutImages } from "../assets/data/aboutUs/aboutImg";
+import { AboutImages } from "../../assets/data/aboutUs/aboutImg";
 function About() {
   return (
     <>
@@ -39,12 +39,12 @@ function About() {
             <iframe
               src="https://www.google.com/maps?q=Tokyo,Japan&output=embed"
               loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
+              referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
           </div>
           <div className="why-us-images">
             {AboutImages.map((img) => (
-              <img src={img.src} alt={img.alt} loading="lazy" />
+              <img src={img.src} alt={img.alt} loading="lazy" key={img.id} />
             ))}
           </div>
         </section>

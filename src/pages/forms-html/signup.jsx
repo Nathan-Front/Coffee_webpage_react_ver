@@ -5,7 +5,7 @@ import {
   validateEmail,
   checkEmail,
   checkUser,
-} from "../assets/js/signup";
+} from "../../assets/js/signup";
 function Signup() {
   const navigate = useNavigate();
   const [form, setForm] = useState({

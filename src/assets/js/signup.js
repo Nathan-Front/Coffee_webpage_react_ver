@@ -27,11 +27,18 @@ export async function createAccount(form) {
     const hashedPassword = await hashPassword(form.password);
     const newUser = {
         ...form, //Copy all the data
-        password: hashedPassword //Then overwrite the password
+        password: hashedPassword, //Then overwrite the password
+        cart: []
     };
     users.push(newUser);
     localStorage.setItem("registeredUser", JSON.stringify(users));
 }
+
+
+
+
+
+
 
 window.signUp = function signUp() {
     const form = document.getElementById('signup-form');

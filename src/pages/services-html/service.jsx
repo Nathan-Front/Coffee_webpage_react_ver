@@ -1,6 +1,7 @@
-import { Baristas } from "../assets/data/services/barista";
-import { Breads } from "../assets/data/services/breads";
-import { Banners } from "../assets/data/services/banners";
+import { Baristas } from "../../assets/data/services/barista";
+import { Breads } from "../../assets/data/services/breads";
+import { Banners } from "../../assets/data/services/banners";
+import { Link } from "react-router-dom";
 function Service() {
   return (
     <>
@@ -108,10 +109,15 @@ function Service() {
                 <p>For those who wants to relax and have some hot coffee.</p>
                 <p>We reserved the 2nd floor just for you.</p>
                 <p>Reservation is only for Saturdays (15:00 - 19:00)</p>
-                <a href="reservation.html">Reserve your favorite seat now.</a>
+                <Link to="/reservation">Reserve your favorite seat now.</Link>
               </div>
               {Banners.map((banner) => (
-                <img src={banner.src} alt={banner.alt} loading="lazy" />
+                <img
+                  src={banner.src}
+                  alt={banner.alt}
+                  loading="lazy"
+                  key={banner.id}
+                />
               ))}
             </div>
           </div>
