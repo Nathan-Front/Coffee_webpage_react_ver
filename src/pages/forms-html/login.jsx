@@ -5,7 +5,9 @@ import {
   mergeCartOnLogin,
 } from "../../assets/js/login.js";
 import { Link, useNavigate } from "react-router-dom";
-function Login({ setLoggedUser }) {
+import { getCartStorage } from "../../assets/js/coffeeBeans.js";
+
+function Login({ setLoggedUser, setCartItems }) {
   const navigate = useNavigate();
   const remembered = JSON.parse(localStorage.getItem("rememberMe"));
   const [isChecked, setIsChecked] = useState(!!remembered);
@@ -33,6 +35,7 @@ function Login({ setLoggedUser }) {
     localStorage.setItem("userLogged", JSON.stringify(result.user));
     await mergeCartOnLogin();
     setLoggedUser(result.user);
+    setCartItems(getCartStorage());
     await RememberMe(isChecked, result.user);
     alert("login successful");
     navigate("/");

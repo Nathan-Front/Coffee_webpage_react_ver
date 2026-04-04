@@ -14,14 +14,19 @@ import About from "./pages/aboutUs-html/about.jsx";
 
 import { useState } from "react";
 import { getCartStorage } from "./assets/js/coffeeBeans";
+
 function App() {
   const [cartItems, setCartItems] = useState(() => getCartStorage());
   const [loggedUser, setLoggedUser] = useState(() => {
-    return JSON.parse(localStorage.getItem("loggedUser")) || null;
+    return JSON.parse(localStorage.getItem("userLogged")) || null;
   });
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
-      <Head loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
+      <Head
+        loggedUser={loggedUser}
+        setLoggedUser={setLoggedUser}
+        setCartItems={setCartItems}
+      />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
@@ -45,7 +50,9 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route
           path="/login"
-          element={<Login setLoggedUser={setLoggedUser} />}
+          element={
+            <Login setLoggedUser={setLoggedUser} setCartItems={setCartItems} />
+          }
         />
         <Route path="/signup" element={<Signup />} />
       </Routes>

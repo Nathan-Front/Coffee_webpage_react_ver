@@ -27,6 +27,7 @@ export async function createAccount(form) {
     const hashedPassword = await hashPassword(form.password);
     const newUser = {
         ...form, //Copy all the data
+        registryId: crypto.randomUUID(),
         password: hashedPassword, //Then overwrite the password
         cart: []
     };

@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { useRef } from "react";
-function Head({ loggedUser, setLoggedUser }) {
+import { getCartStorage } from "../../assets/js/coffeeBeans.js";
+
+function Head({ loggedUser, setLoggedUser, setCartItems }) {
   const userRef = useRef(null);
   function signOut() {
     setLoggedUser(null);
     localStorage.removeItem("userLogged");
+    setCartItems(getCartStorage());
     alert("logged out.");
   }
   return (
