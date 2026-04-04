@@ -36,7 +36,7 @@ function Head({ loggedUser, setLoggedUser }) {
               </Link>
             </li>
             <li>
-              <Link to="/about-us" className="nav-links">
+              <Link to="/About" className="nav-links">
                 About Us
               </Link>
             </li>
