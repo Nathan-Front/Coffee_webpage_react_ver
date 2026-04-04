@@ -8,6 +8,7 @@ import CoffeeBeans from "./coffeeBeans-html/coffeeBeans.jsx";
 import Cart from "./cart-html/cart.jsx";
 import Signup from "./forms-html/signup.jsx";
 import Login from "./forms-html/login.jsx";
+import Service from "./services-html/service.jsx";
 import { useState } from "react";
 import { getCartStorage } from "./assets/js/coffeeBeans";
 function App() {
@@ -30,6 +31,7 @@ function App() {
           path="/cart"
           element={<Cart cartItems={cartItems} setCartItems={setCartItems} />}
         />
+        <Route path="/service" element={<Service />} />
         <Route
           path="/login"
           element={<Login setLoggedUser={setLoggedUser} />}
