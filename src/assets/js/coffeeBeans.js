@@ -1,17 +1,17 @@
 
 import { Beans } from "../data/coffeeBeans/beans";
-export function addToCartHandle(articleId, article, description, imageSrc, imageAlt, price, shipping){
+export function addToCartHandle(item){
     const selectedItem = {
         id: crypto.randomUUID(),
-        itemId: articleId,
-        item: article,
-        description: description,
-        image: imageSrc,
-        imageAlt: imageAlt,
-        price: price,
-        shipping: shipping,
+        itemId: item.id,
+        item: item.name,
+        description: item.description,
+        image: item.src,
+        imageAlt: item.alt,
+        price: item.price,
+        shipping: item.ship,
         qty: 1,
-        totalPrice: price
+        totalPrice: item.price
     }
     sendToStorage(selectedItem);
 }
@@ -95,9 +95,38 @@ export function coffeeOfMonthAddToCart(name) {
     saveToCartStorage(cart);
 }
 
-
-
-
+export function subTotalCalc(){
+    const cart = getCartStorage();
+    if (!cart || !Array.isArray(cart)){
+        return 0;
+    }
+    return cart.reduce((sum, item) => {
+        return sum + (Number(item.price) * Number(item.qty));
+    }, 0);
+}
+export function displayTax(){
+    const cart = getCartStorage();
+    if(!cart) return;       
+    const subTotal = subTotalCalc();
+    return  subTotal * 0.1;
+}
+export function itemShipping(){
+    const cart = getCartStorage();
+    if(!cart || !Array.isArray(cart)) {
+        return 0;
+    }
+    return cart.reduce((sum, item) =>{
+        return sum + (Number(item.shipping || 0) * item.qty);
+    }, 0);
+}
+export function displayGrandTotal(){
+    const cart = getCartStorage();
+    if(!cart) return;
+    const subTotal = subTotalCalc();
+    const tax = displayTax();
+    const shippingFee = itemShipping();
+    return subTotal + tax + shippingFee;
+}
 
 function imageButtonChanger(){  
     const buttonOfTheDay = document.querySelectorAll(".cappuccino-button-carousel");
@@ -500,15 +529,6 @@ function cartPageCounter(){
 }
 document.addEventListener("DOMContentLoaded", cartPageCounter);
 
-function subTotalCalc(){
-    let cartContent = JSON.parse(localStorage.getItem("cartContent"));
-    if (!cartContent || !Array.isArray(cartContent.items)){
-        return 0;
-    }
-    return cartContent.items.reduce((sum, item) => {
-        return sum + (Number(item.itemPrice) * Number(item.itemQty));
-    }, 0);
-}
 function displaySubTotal(){
     let subTotal = document.getElementById("sub-total");
     if (subTotal) {
@@ -517,23 +537,8 @@ function displaySubTotal(){
 }
 document.addEventListener("DOMContentLoaded", displaySubTotal);
 
-function itemTax(){
-    let cartContent = JSON.parse(localStorage.getItem("cartContent"));
-    if(!cartContent || !Array.isArray(cartContent.items)) {
-        return 0;
-    }
-    return cartContent.items.reduce((sum, item) =>{
-        return sum + (Number(item.itemTax || 0) * item.itemQty);
-    }, 0);
-}
-function displayTax(){
-    let taxTotal = document.getElementById("tax");
-    if (taxTotal) {
-        const cartContent = JSON.parse(localStorage.getItem("cartContent"));
-        if(!cartContent) return;       
-        taxTotal.textContent = itemTax().toFixed(2);
-    }
-}
+
+
 document.addEventListener("DOMContentLoaded", displayTax);
 
 function shippingFee(){
@@ -568,14 +573,8 @@ function grandTotal(){
     }
     return subTotal + totalTax + totalShipFee;
 }
-function displayGrandTotal(){
-    let grandTotalEl = document.getElementById("grand-total");
-    if(! grandTotalEl) return;
-    const cartContent = JSON.parse(localStorage.getItem("cartContent"));
-    if(!cartContent) return;
-    grandTotalEl.textContent = grandTotal().toFixed(2);
-}
-document.addEventListener("DOMContentLoaded", displayGrandTotal);
+
+
 
 function checkoutCart(){
     const checkoutBtn = document.getElementById("checkout-button");

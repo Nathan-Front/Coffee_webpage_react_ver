@@ -1,18 +1,47 @@
-import React from "react";
+import {
+  getCartStorage,
+  saveToCartStorage,
+  subTotalCalc,
+  displayTax,
+  itemShipping,
+  displayGrandTotal,
+} from "../assets/js/coffeeBeans";
 
 function Cart({ cartItems, setCartItems }) {
+  function deleteItem(id) {
+    const deleteArticle = getCartStorage().filter((item) => !(item.id === id));
+    saveToCartStorage(deleteArticle);
+    setCartItems(deleteArticle);
+    alert("Item deleted");
+  }
+
+  function updateQuantity(id, amt) {
+    const updateCart = cartItems.map((item) => {
+      if (item.id === id) {
+        const newQty = Math.max(1, item.qty + amt);
+        return {
+          ...item,
+          qty: newQty,
+          totalPrice: newQty * item.price,
+        };
+      }
+      return item;
+    });
+    setCartItems(updateCart);
+    saveToCartStorage(updateCart);
+  }
+  const subTotal = subTotalCalc();
+  const totalQty = cartItems.reduce((sum, item) => sum + item.qty, 0);
+  const itemShip = itemShipping();
+  const subTotalTax = displayTax();
+  const grandTotal = displayGrandTotal();
+
   return (
     <>
       <main>
         <h2 className="cart-title" id="cart-page-counter">
-          Your cart (
-          <span id="cart-item-counter">
-            {cartItems.reduce((total, item) => total + item.qty, 0)}
-          </span>
-          <span id="cart-item-label">
-            item{cartItems.length > 0 ? "s" : ""}
-          </span>
-          )
+          Your cart (<span id="cart-item-counter">{`${totalQty} `}</span>
+          <span id="cart-item-label">item{totalQty > 1 ? "s" : ""}</span>)
         </h2>
         <section
           className="item-in-cart-container"
@@ -27,7 +56,10 @@ function Cart({ cartItems, setCartItems }) {
                     <h3 className="item-title-cart">{item.item}</h3>
                     <p>{item.description}</p>
                     <span>Shipping fee</span>
-                    <button className="delete-item-button" data-id="${item.id}">
+                    <button
+                      className="delete-item-button"
+                      onClick={() => deleteItem(item.id)}
+                    >
                       Delete
                     </button>
                   </div>
@@ -41,9 +73,19 @@ function Cart({ cartItems, setCartItems }) {
                 <div className="quantity">
                   <h3>Quantity:</h3>
                   <div>
-                    <button className="minus-btn">-</button>
+                    <button
+                      className="minus-btn"
+                      onClick={() => updateQuantity(item.id, -1)}
+                    >
+                      -
+                    </button>
                     <span className="item-qty">{item.qty}</span>
-                    <button className="add-btn">+</button>
+                    <button
+                      className="add-btn"
+                      onClick={() => updateQuantity(item.id, 1)}
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
                 <div className="total">
@@ -61,16 +103,18 @@ function Cart({ cartItems, setCartItems }) {
         <section className="cart-checkout-container">
           <div id="cart-compute-fee">
             <p>
-              Sub total: $<span id="sub-total"></span>
+              Sub total: $<span id="sub-total">{subTotal.toFixed(2)}</span>
             </p>
             <p>
-              Tax: $<span id="tax"></span>
+              Tax: $<span id="tax">{subTotalTax.toFixed(2)}</span>
             </p>
             <p>
-              Shipping fee: $<span id="shipping-fee"></span>
+              Shipping fee: $
+              <span id="shipping-fee">{itemShip.toFixed(2)}</span>
             </p>
             <p>
-              Grand Total: $<span id="grand-total"></span>
+              Grand Total: $
+              <span id="grand-total">{grandTotal.toFixed(2)}</span>
             </p>
             <button type="button" id="checkout-button">
               Proceed to Checkout

@@ -123,22 +123,14 @@ function CoffeeBeans({ cartItems, setCartItems }) {
   }
 
   function addToCartHandler(item) {
-    const articleId = item.id;
+    /*  const articleId = item.id;
     const article = item.name;
     const description = item.description;
     const imageSrc = item.src;
     const imageAlt = item.alt;
     const price = item.price;
-    const shipping = item.ship;
-    addToCartHandle(
-      articleId,
-      article,
-      description,
-      imageSrc,
-      imageAlt,
-      price,
-      shipping,
-    );
+    const shipping = item.ship;*/
+    addToCartHandle(item);
 
     const updateCartUI = getCartStorage();
     setCartItems(updateCartUI);
