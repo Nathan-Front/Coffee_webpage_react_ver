@@ -9,7 +9,7 @@ import {
 
 function Cart({ cartItems, setCartItems, loggedUser }) {
   function deleteItem(id) {
-    const deleteArticle = getCartStorage().filter((item) => !(item.id === id));
+    const deleteArticle = getCartStorage().filter((item) => item.id !== id);
     saveToCartStorage(deleteArticle);
     setCartItems(deleteArticle);
     alert("Item deleted");

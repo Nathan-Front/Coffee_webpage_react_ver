@@ -1,3 +1,29 @@
+const BASE = import.meta.env.BASE_URL;
+export function getSelectedImg(seatType) {
+    switch (seatType) {
+    case "single":
+      return `${BASE}images/services/reservation/singleseat2.png`;
+    case "double":
+      return `${BASE}images/services/reservation/doubleseat2.png`;
+    case "four":
+      return `${BASE}images/services/reservation/fourseat2.png`;
+    case "six":
+      return `${BASE}images/services/reservation/sixseat2.png`;
+    default:
+      return getDefaultImg(seatType);
+  }
+}
+export function getDefaultImg(seatType) {
+  const paths = {
+    single: `${BASE}images/services/reservation/singleseat1.png`,
+    double: `${BASE}images/services/reservation/doubleseat1.png`,
+    four: `${BASE}images/services/reservation/fourseat1.png`,
+    six: `${BASE}images/services/reservation/sixseat1.png`
+  };
+  return paths[seatType] || ""; 
+}
+
+/*
 
 let seatReserved = 0;
 let seatLoc;
@@ -73,21 +99,7 @@ function getDefaultImg(img) {
   if (img.src.includes("six")) return "./images/services/reservation/sixseat1.png";
 }
 
-function getSelectedImg(img) {
-    const type = img.dataset.seatType;
-    switch (type) {
-    case "single":
-      return "./images/services/reservation/singleseat2.png";
-    case "double":
-      return "./images/services/reservation/doubleseat2.png";
-    case "four":
-      return "./images/services/reservation/fourseat2.png";
-    case "six":
-      return "./images/services/reservation/sixseat2.png";
-    default:
-      return img.src;
-  }
-}
+
  
 function getMarkedSeat(){
     const resSeat = JSON.parse(localStorage.getItem("reserveSeat")) || [];
@@ -157,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   selectSeatToReserve(); 
 });*/
-
+/*
 function initReservationForm() {
   const dateInput = document.querySelector("#inputReserveDate");
   const timeInput = document.querySelector("#inputReserveTime");
@@ -373,3 +385,4 @@ document.addEventListener("DOMContentLoaded", () => {
   getMarkedSeat();
 });
 
+*/

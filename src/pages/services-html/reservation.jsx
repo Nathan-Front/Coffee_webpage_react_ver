@@ -4,7 +4,8 @@ import {
   FourSeat,
   SixSeat,
 } from "../../assets/data/services/seats";
-
+import { useState, useEffect } from "react";
+import { getDefaultImg, getSelectedImg } from "../../assets/js/reserve";
 function Reservation() {
   const singleLabel = ["A1", "A2", "A3", "A4", "A5", "A6", "A7"];
   const singleImg = SingleSeat[0];
@@ -14,6 +15,15 @@ function Reservation() {
   const fourImg = FourSeat[0];
   const sixLabel = ["C1", "C2"];
   const sixImg = SixSeat[0];
+
+  const [isClicked, setIsClicked] = useState("");
+
+  const getImgPath = (seat, seatType) => {
+    if (isClicked === seat) {
+      return getSelectedImg(seatType);
+    }
+    return getDefaultImg(seatType);
+  };
 
   return (
     <>
@@ -25,12 +35,17 @@ function Reservation() {
           {singleLabel.map((seat) => (
             <li className="seat-selection" key={seat}>
               <label>
-                <input name="seat" value="A1" id="A1-seat" type="radio" />
+                <input
+                  name="seat"
+                  id={`${seat}-seat`}
+                  type="radio"
+                  checked={isClicked === seat}
+                  onChange={() => setIsClicked(seat)}
+                />
                 <img
                   className="single-seat"
-                  src={singleImg.src}
-                  alt={SingleSeat.alt}
-                  data-seat-type="single"
+                  src={getImgPath(seat, "single")}
+                  alt={singleImg.alt}
                 />
                 <span>{seat}</span>
               </label>
@@ -46,11 +61,17 @@ function Reservation() {
             {doubleLabel.map((seat) => (
               <li className="seat-selection" key={seat}>
                 <label>
-                  <input name="seat" value="A11" id="A11-seat" type="radio" />
+                  <input
+                    name="seat"
+                    id={`${seat}-seat`}
+                    type="radio"
+                    checked={isClicked === seat}
+                    onChange={() => setIsClicked(seat)}
+                  />
                   <img
-                    src={doubleImg.src}
+                    className="double-seat"
+                    src={getImgPath(seat, "double")}
                     alt={doubleImg.alt}
-                    data-seat-type="double"
                   />
                   <span>{seat}</span>
                 </label>
@@ -63,12 +84,14 @@ function Reservation() {
               {sixLabel.map((seat) => (
                 <li className="six-seats" key={seat}>
                   <label>
-                    <input name="seat" value="C" id="C-seat" type="radio" />
-                    <img
-                      src={sixImg.src}
-                      alt={sixImg.alt}
-                      data-seat-type="six"
+                    <input
+                      name="seat"
+                      id={`${seat}-seat`}
+                      type="radio"
+                      checked={isClicked === seat}
+                      onChange={() => setIsClicked(seat)}
                     />
+                    <img src={getImgPath(seat, "six")} alt={sixImg.alt} />
                     <span>{seat}</span>
                   </label>
                 </li>
@@ -76,12 +99,14 @@ function Reservation() {
               {fourLabel.map((seat) => (
                 <li className="six-seats" key={seat}>
                   <label>
-                    <input name="seat" value="B" id="B-seat" type="radio" />
-                    <img
-                      src={fourImg.src}
-                      alt={fourImg.alt}
-                      data-seat-type="six"
+                    <input
+                      name="seat"
+                      id={`${seat}-seat`}
+                      type="radio"
+                      checked={isClicked === seat}
+                      onChange={() => setIsClicked(seat)}
                     />
+                    <img src={getImgPath(seat, "four")} alt={fourImg.alt} />
                     <span>{seat}</span>
                   </label>
                 </li>
