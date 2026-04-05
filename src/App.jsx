@@ -46,7 +46,10 @@ function App() {
           }
         />
         <Route path="/service" element={<Service />} />
-        <Route path="/reservation" element={<Reservation />} />
+        <Route
+          path="/reservation"
+          element={<Reservation loggedUser={loggedUser} />}
+        />
         <Route path="/about" element={<About />} />
         <Route
           path="/login"

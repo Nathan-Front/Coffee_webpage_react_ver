@@ -1,20 +1,11 @@
-import {
-  DoubleSeat,
-  SingleSeat,
-  FourSeat,
-  SixSeat,
-} from "../../assets/data/services/seats";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getDefaultImg, getSelectedImg } from "../../assets/js/reserve";
-function Reservation() {
+import ReserveForm from "./reserveForm.jsx";
+function Reservation({ loggedUser }) {
   const singleLabel = ["A1", "A2", "A3", "A4", "A5", "A6", "A7"];
-  const singleImg = SingleSeat[0];
   const doubleLabel = ["A11", "A12", "A13", "A14", "A15"];
-  const doubleImg = DoubleSeat[0];
   const fourLabel = ["B1", "B2"];
-  const fourImg = FourSeat[0];
   const sixLabel = ["C1", "C2"];
-  const sixImg = SixSeat[0];
 
   const [isClicked, setIsClicked] = useState("");
 
@@ -24,6 +15,22 @@ function Reservation() {
     }
     return getDefaultImg(seatType);
   };
+
+  const [isForm, setIsForm] = useState(false);
+  const handleReserveClick = () => {
+    if (isClicked) {
+      setIsForm(true);
+    } else {
+      alert("Please select a seat first!");
+    }
+  };
+  useEffect(() => {
+    if (isForm) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  });
 
   return (
     <>
@@ -45,7 +52,7 @@ function Reservation() {
                 <img
                   className="single-seat"
                   src={getImgPath(seat, "single")}
-                  alt={singleImg.alt}
+                  alt={`${seat}-image`}
                 />
                 <span>{seat}</span>
               </label>
@@ -71,7 +78,7 @@ function Reservation() {
                   <img
                     className="double-seat"
                     src={getImgPath(seat, "double")}
-                    alt={doubleImg.alt}
+                    alt={`${seat}-image`}
                   />
                   <span>{seat}</span>
                 </label>
@@ -91,7 +98,7 @@ function Reservation() {
                       checked={isClicked === seat}
                       onChange={() => setIsClicked(seat)}
                     />
-                    <img src={getImgPath(seat, "six")} alt={sixImg.alt} />
+                    <img src={getImgPath(seat, "six")} alt={`${seat}-image`} />
                     <span>{seat}</span>
                   </label>
                 </li>
@@ -106,7 +113,7 @@ function Reservation() {
                       checked={isClicked === seat}
                       onChange={() => setIsClicked(seat)}
                     />
-                    <img src={getImgPath(seat, "four")} alt={fourImg.alt} />
+                    <img src={getImgPath(seat, "four")} alt={`${seat}-image`} />
                     <span>{seat}</span>
                   </label>
                 </li>
@@ -116,7 +123,11 @@ function Reservation() {
         </div>
 
         <div className="entrance-exit">
-          <button type="button" id="reserve-button">
+          <button
+            type="button"
+            id="reserve-button"
+            onClick={handleReserveClick}
+          >
             Reserve now
           </button>
           <h3>Entrance/Exit</h3>
@@ -124,22 +135,22 @@ function Reservation() {
         <section className="notice-section">
           <h3>Notice</h3>
           <p>
-            Reservation is only htmlFor Saturdays. We do not accept reservation
-            on other days.
+            Reservation is only for Saturdays. We do not accept reservation on
+            other days.
           </p>
           <p>
-            Share table: Can be used freely by customers if no reservation
-            htmlFor that table during that day
+            Share table: Can be used freely by customers if no reservation for
+            that table during that day
           </p>
           <p>
-            You may also reserve htmlFor the double seat table if single seats
-            are fully occupied. You can not reserve htmlFor these seats if a
-            single seat table is available.
+            You may also reserve for the double seat table if single seats are
+            fully occupied. You can not reserve for these seats if a single seat
+            table is still available.
           </p>
           <p>
-            You may also reserve htmlFor the share table if single or double
-            seats are fully occupied. We will reserve a seat on the share table
-            you selected.
+            You may also reserve for the share table if single or double seats
+            are fully occupied. We will reserve a seat on the share table you
+            selected.
           </p>
           <p>If you have any questions, please contact us.</p>
           <p>
@@ -154,6 +165,15 @@ function Reservation() {
             </a>
           </p>
         </section>
+        {isForm && (
+          <div>
+            <ReserveForm
+              selectedSeat={isClicked}
+              onClose={() => setIsForm(false)}
+              loggedUser={loggedUser}
+            />
+          </div>
+        )}
       </main>
     </>
   );

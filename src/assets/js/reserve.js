@@ -22,7 +22,31 @@ export function getDefaultImg(seatType) {
   };
   return paths[seatType] || ""; 
 }
-
+export function isSaturday(dateStr) {
+  const date = new Date(dateStr);
+  return date.getDay() === 6;
+}
+export function reserveSeat(reserveData) {
+  const loggedUser = JSON.parse(localStorage.getItem("userLogged"));
+  if(!loggedUser) {
+    alert("Must be logged in to reserve.");
+    return;
+  }
+  
+  const reserveDB = JSON.parse(localStorage.getItem("reservedSeats")) || [];
+  const existReserve = reserveDB.find(reserve => reserve.name === loggedUser.userName && reserve.reservedDate === reserveData.reservedDate);
+  console.log(existReserve)
+  if(!existReserve){
+    reserveDB.push(reserveData)
+    localStorage.setItem("reservedSeats", JSON.stringify(reserveDB));
+    alert("Seat reserved.")
+    return true;
+  } else {
+    alert("Cannot do duplicate reservation on the same date.");
+    return;
+  }
+  
+}
 /*
 
 let seatReserved = 0;
