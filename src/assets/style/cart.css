@@ -151,8 +151,8 @@
 }
 @media only screen and (max-width: 599px){
     .cart-title{
-        margin-top: 20px;
-        padding-bottom: 20px; 
+        margin-top: 30px;
+        padding-bottom: 50px; 
     }
     .cart-item-container{
         width: 90%;
@@ -197,7 +197,7 @@
          margin-left: 10px; 
     }
     .cart-checkout-container> div{
-        margin: 10px auto 0 auto;
+        margin: 10px auto 50px auto;
         gap: 10px; 
     }
 }

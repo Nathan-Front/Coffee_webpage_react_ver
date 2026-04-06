@@ -12,6 +12,7 @@ import Service from "./pages/services-html/service.jsx";
 import Reservation from "./pages/services-html/reservation.jsx";
 import About from "./pages/aboutUs-html/about.jsx";
 import ToUser from "./pages/forms-html/toUser.jsx";
+import Burger from "./pages/mobileNav-html/burger.jsx";
 import { useState } from "react";
 import { getCartStorage } from "./assets/js/coffeeBeans";
 
@@ -65,6 +66,7 @@ function App() {
             <ToUser loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
           }
         />
+        <Route path="/burger" element={<Burger />} />
       </Routes>
       <Footer />
       <MobileNav loggedUser={loggedUser} />

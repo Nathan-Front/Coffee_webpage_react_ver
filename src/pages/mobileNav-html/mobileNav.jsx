@@ -8,6 +8,17 @@ function MobileNav({ loggedUser }) {
     navigate(targetPath);
     console.log(targetPath);
   };
+
+  const burgerHander = () => {
+    const onBurgerPage = window.location.pathname.includes("/burger");
+    if (!onBurgerPage) {
+      navigate("/burger");
+    } else {
+      navigate(-1) || navigate("/");
+    }
+  };
+  const isBurgerPath = window.location.pathname.includes("/burger");
+
   return (
     <>
       <nav id="mobile-nav">
@@ -62,16 +73,10 @@ function MobileNav({ loggedUser }) {
         <div>
           <div id="burger" className="mobile-icons">
             <img
-              src={`${import.meta.env.BASE_URL}images/mobileLogo/burger/icon-hamburger.svg`}
+              src={`${import.meta.env.BASE_URL}${isBurgerPath ? "images/mobileLogo/burger/icon-close.svg" : "images/mobileLogo/burger/icon-hamburger.svg"}`}
               alt="burger button"
               className="burger-button"
-            />
-          </div>
-          <div id="burger-close">
-            <img
-              src={`${import.meta.env.BASE_URL}images/mobileLogo/burger/icon-close.svg`}
-              alt=""
-              className="burger-button"
+              onClick={burgerHander}
             />
           </div>
         </div>

@@ -1,5 +1,8 @@
 import { AboutImages } from "../../assets/data/aboutUs/aboutImg";
+import { useMobile } from "../../hooks/useIsMobile";
 function About() {
+  useMobile();
+
   return (
     <>
       <main>

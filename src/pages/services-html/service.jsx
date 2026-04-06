@@ -2,7 +2,10 @@ import { Baristas } from "../../assets/data/services/barista";
 import { Breads } from "../../assets/data/services/breads";
 import { Banners } from "../../assets/data/services/banners";
 import { Link } from "react-router-dom";
+import { useMobile } from "../../hooks/useIsMobile";
 function Service() {
+  useMobile();
+
   return (
     <>
       <main id="service">

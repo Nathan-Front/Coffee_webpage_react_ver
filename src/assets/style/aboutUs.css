@@ -219,26 +219,17 @@ iframe{
     /*These below are needed for 599*/
     
     .about-us-mobile-container{
-        position: fixed;
-        width: 100vw;
-        height: 100vh;
-        top: 0;
-        right: 0;
+        display: flex;
+        flex-direction: column;
+        position: inherit;
+        width: 100%;
+
         background-color: white;
         z-index: 99;
-        transform: translateX(100%);
-        opacity: 0;
-        transition: transform 0.4s ease, opacity 0.4s ease;
-        overflow-x: hidden;
-        overflow-y: auto;
-         will-change: transform, opacity;
-    backface-visibility: hidden;
+        backface-visibility: hidden;
 
     }
-    .about-us-mobile-container.activeBurger {
-        transform: translateX(0);
-        opacity: 1;
-    }
+
 }
 @media (min-width: 600px) and (max-width: 768px){
     .about-us-second-section-container{
