@@ -361,8 +361,8 @@ address> a:hover{
     box-shadow: 0 3px 6px #85746b;
 }
 .relaxing-container> div> img{
-    width: clamp(150px, 20vw, 600px);
-    height: clamp(130px, 20vw, 500px);
+    width: clamp(180px, 20vw, 600px);
+    height: clamp(80px, 20vw, 500px);
     margin: 0 auto;
     width: 90%;
     border-radius: 1em;
@@ -380,7 +380,7 @@ address> a:hover{
     margin: 0 auto;
 }
 @media only screen and (max-width: 599px){
-.service-third-section-container> h2,
+    .service-third-section-container> h2,
     .bread-container-text> p,
     .bread-container-text> ul{
         margin-left: 20px;
@@ -389,7 +389,7 @@ address> a:hover{
         background-image: unset; 
         padding: 0; 
     }
-     .relaxing-container> div{
+    .relaxing-container> div{
         display: grid;
         grid-template-columns: auto auto auto; 
         grid-template-rows: 1fr 1fr;
@@ -398,7 +398,7 @@ address> a:hover{
         width: 100%; 
         background-color: goldenrod;
     }
-     .relaxing-container-text{
+    .relaxing-container-text{
         grid-column-start: 1; 
         grid-column-end: 4; 
         grid-row-start: 1; 
@@ -426,6 +426,9 @@ address> a:hover{
         grid-column-end: 4; 
         grid-row-start: 2; 
         grid-row-end: 3; 
+    }
+    .relaxing-container> div> img{
+        margin: auto;
     }
     .service-fourth-section-container{
         padding: 10px 0 80px 0;

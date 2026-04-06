@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useMobile } from "../../hooks/useIsMobile.js";
 import {
   userLogin,
   RememberMe,
@@ -53,6 +54,8 @@ function Login({ setLoggedUser, setCartItems }) {
       password: "",
     });
   }
+  useMobile();
+
   return (
     <>
       <main>

@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMobile } from "../../hooks/useIsMobile";
 import {
   createAccount,
   validateEmail,
   checkEmail,
   checkUser,
 } from "../../assets/js/signup";
+
 function Signup() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -59,6 +61,8 @@ function Signup() {
       password: "",
     });
   }
+  useMobile();
+
   return (
     <>
       <main>

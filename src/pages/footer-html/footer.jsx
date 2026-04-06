@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -23,16 +23,16 @@ function Footer() {
             <h3 className="footer-links-title">Page</h3>
             <ul className="footer-nav">
               <li>
-                <a href="#">Home</a>
+                <Link to="/">Home</Link>
               </li>
               <li>
-                <a href="coffeeBeans.html">Coffee Beans</a>
+                <Link to="/coffeeBeans">Coffee Beans</Link>
               </li>
               <li>
-                <a href="service.html">Services</a>
+                <Link to="/service">Services</Link>
               </li>
               <li>
-                <a href="aboutus.html">About Us</a>
+                <Link to="/about">About Us</Link>
               </li>
             </ul>
           </div>
@@ -40,7 +40,7 @@ function Footer() {
             <h3 className="footer-links-title">Media</h3>
             <ul className="mobile-media">
               <li>
-                <a href="https://www.facebook.com">
+                <a href="https://www.facebook.com" target="_blank">
                   <img
                     className="mobile-media-images"
                     src={`${import.meta.env.BASE_URL}images/mobileLogo/mobileFooter/facebook-svgrepo-com.png`}
@@ -50,7 +50,7 @@ function Footer() {
                 </a>
               </li>
               <li>
-                <a href="https://www.instagram.com">
+                <a href="https://www.instagram.com" target="_blank">
                   <img
                     className="mobile-media-images"
                     src={`${import.meta.env.BASE_URL}images/mobileLogo/mobileFooter/instagram-rounded-border-svgrepo-com.png`}
@@ -60,7 +60,7 @@ function Footer() {
                 </a>
               </li>
               <li>
-                <a href="https://www.twitter.com">
+                <a href="https://www.twitter.com" target="_blank">
                   <img
                     className="mobile-media-images"
                     src={`${import.meta.env.BASE_URL}images/mobileLogo/mobileFooter/twitter-rounded-border-svgrepo-com.png`}
@@ -70,7 +70,7 @@ function Footer() {
                 </a>
               </li>
               <li>
-                <a href="https://www.linkedin.com">
+                <a href="https://www.linkedin.com" target="_blank">
                   <img
                     className="mobile-media-images"
                     src={`${import.meta.env.BASE_URL}images/mobileLogo/mobileFooter/linkedin-boerder-svgrepo-com.png`}

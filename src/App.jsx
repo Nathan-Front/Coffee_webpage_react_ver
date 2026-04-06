@@ -11,7 +11,7 @@ import Login from "./pages/forms-html/login.jsx";
 import Service from "./pages/services-html/service.jsx";
 import Reservation from "./pages/services-html/reservation.jsx";
 import About from "./pages/aboutUs-html/about.jsx";
-
+import ToUser from "./pages/forms-html/toUser.jsx";
 import { useState } from "react";
 import { getCartStorage } from "./assets/js/coffeeBeans";
 
@@ -20,6 +20,7 @@ function App() {
   const [loggedUser, setLoggedUser] = useState(() => {
     return JSON.parse(localStorage.getItem("userLogged")) || null;
   });
+
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Head
@@ -58,9 +59,15 @@ function App() {
           }
         />
         <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/toUser"
+          element={
+            <ToUser loggedUser={loggedUser} setLoggedUser={setLoggedUser} />
+          }
+        />
       </Routes>
       <Footer />
-      <MobileNav />
+      <MobileNav loggedUser={loggedUser} />
     </BrowserRouter>
   );
 }

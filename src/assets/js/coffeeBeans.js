@@ -128,6 +128,9 @@ export function displayGrandTotal(){
     return subTotal + tax + shippingFee;
 }
 
+
+
+/*
 function imageButtonChanger(){  
     const buttonOfTheDay = document.querySelectorAll(".cappuccino-button-carousel");
     buttonOfTheDay.forEach((e) =>{
@@ -738,7 +741,7 @@ function coffeeBeansCarouselTouch(){
         /*coffeeSlides.forEach((slide, i) =>{
             slide.style.transform = `translateX(${currentTranslate}px)`;
         });*/
-        carouselWrapper.style.transform = `translateX(${currentTranslate}px)`;
+  /*      carouselWrapper.style.transform = `translateX(${currentTranslate}px)`;
     }
     updateSlider();
     carouselWrapper.addEventListener("touchstart", (e) =>{
@@ -805,3 +808,4 @@ function repositionCarousel(){
     updateCoffeeDot();
 }
 window.addEventListener("resize", repositionCarousel);
+*/

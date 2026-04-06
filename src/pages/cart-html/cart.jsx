@@ -125,7 +125,7 @@ function Cart({ cartItems, setCartItems, loggedUser }) {
               <span id="grand-total">{grandTotal.toFixed(2)}</span>
             </p>
             <button type="button" id="checkout-button" onClick={toPayment}>
-              Proceed to Checkout
+              Proceed to Payment
             </button>
           </div>
         </section>
