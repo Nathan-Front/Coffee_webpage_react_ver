@@ -28,10 +28,12 @@ function Signup() {
       [name]: value,
     }));
   }
+  const [error, setError] = useState("");
   function submitForm(e) {
     e.preventDefault();
+    setError("");
     if (!validateEmail(form.email)) {
-      alert("Invalid email format");
+      setError("Enter a valid email");
       return;
     }
     const emailExist = checkEmail(form.email);
@@ -128,15 +130,14 @@ function Signup() {
             <input
               type="text"
               id="eAddress"
-              className="signup-input"
+              className={`signup-input ${error ? "error-border" : ""}`}
               name="email"
               placeholder="email"
               value={form.email}
               onChange={handleChange}
               required
             />
-            <small className="error"></small>
-            <small className="taken"></small>
+            {error && <small className="error">{error}</small>}
           </div>
 
           <label htmlFor="cNumber">Contact Number</label>

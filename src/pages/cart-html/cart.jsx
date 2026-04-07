@@ -41,7 +41,7 @@ function Cart({ cartItems, setCartItems, loggedUser }) {
       alert("Must be logged in.");
       return;
     } else {
-      alert("Total payment $" + grandTotal);
+      alert("Total payment $" + grandTotal.toFixed(2));
     }
   }
   return (

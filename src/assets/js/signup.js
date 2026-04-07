@@ -39,7 +39,7 @@ export async function createAccount(form) {
 
 
 
-
+/*
 
 window.signUp = function signUp() {
     const form = document.getElementById('signup-form');
@@ -121,11 +121,7 @@ async function openLoginForm() {
 }
 
 //error message when incorrect e-mail format was input
-function showError(input, message) {
-    const small = input.parentElement.querySelector("small");
-    small.textContent = message;
-    input.classList.add("error-border");
-}
+
 //error display when e-mail already taken
 function showTaken(input, message) {
     const small = input.parentElement.querySelector("small");
@@ -149,4 +145,4 @@ function toggleEye(){
         });
     });
 }
-toggleEye();
+toggleEye();*/

@@ -75,7 +75,7 @@
     flex: 20%;
     text-align: right;
     margin-bottom: 45px;
-            font-size: clamp(0.8rem, 2vw, 1.4rem); 
+    font-size: clamp(0.8rem, 2vw, 1.4rem); 
 }
 .price> div> h3{
     padding-right: 10px;
@@ -110,11 +110,7 @@
     margin-right: 10px;
 }
 .total> div> h3{
-    padding-right: 60px;
-}
-.total> div> span{
-    position: absolute;
-    right: 0;
+    padding-right: 10px;
 }
 .cart-checkout-container{
    padding-bottom: 150px;
@@ -178,9 +174,6 @@
         margin-bottom: 10px; 
         display: flex; 
     }
-    .total> div> span{
-        position: relative;
-    }
     .price> div> h3,
     .quantity> h3,
     .total> div> h3{
@@ -215,7 +208,7 @@
         margin-bottom: 15px; 
     }
     .quantity{
-        flex: 25%; 
+        flex: 20%; 
         display: flex; 
         justify-content: center; 
     }

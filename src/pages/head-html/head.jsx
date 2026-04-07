@@ -10,6 +10,7 @@ function Head({ loggedUser, setLoggedUser, setCartItems }) {
     setCartItems(getCartStorage());
     alert("logged out.");
   }
+
   return (
     <>
       <div className="header-nav-container">
@@ -45,7 +46,16 @@ function Head({ loggedUser, setLoggedUser, setCartItems }) {
             </li>
             <li>
               <p>
-                <Link to="/login" className="to-login-html-button">
+                <Link
+                  to="/login"
+                  className="to-login-html-button"
+                  onClick={(e) => {
+                    if (loggedUser) {
+                      e.preventDefault();
+                      alert("Already logged in.");
+                    }
+                  }}
+                >
                   Login
                 </Link>
                 or

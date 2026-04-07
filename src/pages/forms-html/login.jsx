@@ -39,7 +39,7 @@ function Login({ setLoggedUser, setCartItems }) {
     setCartItems(getCartStorage());
     await RememberMe(isChecked, result.user);
     alert("login successful");
-    navigate("/");
+    navigate(-1);
   }
   function handleChange(e) {
     const { name, value } = e.target;
@@ -113,7 +113,7 @@ function Login({ setLoggedUser, setCartItems }) {
               id="login-close-createAccnt-page"
               onClick={resetForm}
             >
-              Cancel
+              Reset
             </button>
             <p>
               Forgot{" "}

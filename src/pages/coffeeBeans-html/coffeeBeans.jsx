@@ -15,24 +15,6 @@ function CoffeeBeans({ cartItems, setCartItems }) {
   const [selectCoffeeBtn, setSelectCoffeeBtn] = useState(
     CoffeeOfMonthBtn[0].id,
   );
-  const [coffeeIndex, setCoffeeIndex] = useState(0);
-  const [sliderView, setSliderView] = useState(4);
-  useEffect(() => {
-    const updateSliderView = () => {
-      if (window.innerWidth <= 599) {
-        setSliderView(1);
-      } else if (window.innerWidth <= 768) {
-        setSliderView(3);
-      } else {
-        setSliderView(4);
-      }
-    };
-    updateSliderView();
-    window.addEventListener("resize", updateSliderView);
-    return () => {
-      window.removeEventListener("resize", updateSliderView);
-    };
-  }, []);
   //For mobile state
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 599);
   useEffect(() => {
@@ -41,6 +23,30 @@ function CoffeeBeans({ cartItems, setCartItems }) {
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  const [coffeeIndex, setCoffeeIndex] = useState(0);
+  const [sliderView, setSliderView] = useState(4);
+  useEffect(() => {
+    const updateSliderView = () => {
+      let newView = 4;
+      if (window.innerWidth <= 599) {
+        newView = 1;
+        setIsMobile(true);
+      } else if (window.innerWidth <= 768) {
+        newView = 3;
+        setIsMobile(false);
+      } else {
+        newView = 4;
+        setIsMobile(false);
+      }
+      setSliderView(newView);
+      setCoffeeIndex(0);
+    };
+    updateSliderView();
+    window.addEventListener("resize", updateSliderView);
+    return () => {
+      window.removeEventListener("resize", updateSliderView);
+    };
   }, []);
 
   const trackRef = useRef(null);
@@ -67,7 +73,7 @@ function CoffeeBeans({ cartItems, setCartItems }) {
     } else {
       setTranslateX(coffeeIndex * stepWidth);
     }
-  }, [coffeeIndex, isMobile]);
+  }, [coffeeIndex, isMobile, sliderView]);
 
   const maxIndex = Beans.length - sliderView;
   //prev/mext buttons
@@ -123,15 +129,7 @@ function CoffeeBeans({ cartItems, setCartItems }) {
   }
 
   function addToCartHandler(item) {
-    /*  const articleId = item.id;
-    const article = item.name;
-    const description = item.description;
-    const imageSrc = item.src;
-    const imageAlt = item.alt;
-    const price = item.price;
-    const shipping = item.ship;*/
     addToCartHandle(item);
-
     const updateCartUI = getCartStorage();
     setCartItems(updateCartUI);
 

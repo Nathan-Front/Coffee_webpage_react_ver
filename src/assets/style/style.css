@@ -160,25 +160,14 @@ body.no-scroll {
     background-color: rgba(0,0,0, 0.8);
     transition: 0.3s;
 }
-
 .error {
   color: red;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   position: absolute;
   bottom: 15%;
   left: 0;
 }
 input.error-border {
-  border: 2px solid red;
-}
-.taken {
-  color: red;
-  font-size: 0.6rem;
-  position: absolute;
-  bottom: 15%;
-  left: 0;
-}
-.taken.error-border {
   border: 2px solid red;
 }
 @media only screen and (max-width: 599px){
@@ -204,10 +193,6 @@ input.error-border {
     }
     .submit-button-container{
         padding: 0px 0 50px 0; 
-    }
-    .submit-button-container> button{
-        background-color: rgb(0, 0, 0); 
-        color: whitesmoke; 
     }
 }
 @media (min-width: 600px) and (max-width: 768px) {
@@ -341,22 +326,11 @@ input.error-border {
     .login-password-container{
         margin-bottom: 0px;       
     }  
-    .login-button-container> button,
-    .login-button-container> a{
-        background-color: rgb(0, 0, 0);
-        color: whitesmoke;
-        font-size: 1rem;
-    }
     .login-remember-me> span{
         font-size: clamp(0.8rem, 1vw, 1.3rem);
     }
     .cancel-forgot-container{
         padding: 10px 0 0 0;
-    }
-    .cancel-forgot-container> button{
-        background-color: black;
-        color: whitesmoke;
-        font-size: clamp(1rem, 1.4vw, 2rem);
     }
     .logged-user-container{
         width: 90%;

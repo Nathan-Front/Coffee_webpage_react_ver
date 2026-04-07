@@ -745,6 +745,10 @@ header img{
     width: fit-content;
     margin: 0 auto;
 }
+.fourth-coffee-selection-text> h2,
+.fourth-coffee-selection-text> p{
+    color: #4b2b1b;
+}
 .fourth-coffee-selection-text-images{
     display: flex;
     justify-content: center;

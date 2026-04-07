@@ -2,9 +2,20 @@ import { Baristas } from "../../assets/data/services/barista";
 import { Breads } from "../../assets/data/services/breads";
 import { Banners } from "../../assets/data/services/banners";
 import { Link } from "react-router-dom";
-import { useMobile } from "../../hooks/useIsMobile";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
 function Service() {
-  useMobile();
+  const navigate = useNavigate();
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 599) {
+        navigate("/reservation");
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [navigate]);
 
   return (
     <>
