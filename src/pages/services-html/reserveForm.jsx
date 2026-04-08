@@ -1,7 +1,7 @@
 import { isSaturday } from "../../assets/js/reserve";
 import { useState } from "react";
 import { reserveSeat } from "../../assets/js/reserve";
-
+import { validateEmail } from "../../assets/js/signup";
 function ReserveForm({ onClose, loggedUser }) {
   const personCount = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
   const timeOptions = [
@@ -52,8 +52,15 @@ function ReserveForm({ onClose, loggedUser }) {
       [id]: value,
     }));
   };
+
+  const [isError, setIsError] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsError("");
+    if (!validateEmail(isReserve.email)) {
+      setIsError("Enter a valid email");
+      return;
+    }
     const success = reserveSeat(isReserve);
     console.log(success);
     if (success) {
@@ -129,6 +136,7 @@ function ReserveForm({ onClose, loggedUser }) {
             type="text"
             id="email"
             placeholder="Input email address"
+            className={isError ? "error-border" : ""}
             value={isReserve.email || ""}
             onChange={reserveHandler}
           />
